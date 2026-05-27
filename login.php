@@ -7,51 +7,57 @@
     p {
       color: green;
     }
+
     div {
-      border: 1px solid;
-      border-radius: 10px;
-    } 
-    #principal{
+      border-radius: 30px;
+    }
+
+    #principal {
       width: 250px;
       padding: 20px;
       margin: auto;
-      background: linear-gradient(to right,blue,purple);
+      background: linear-gradient(to right, blue, purple);
+      color: white;
     }
-    h1{
+
+    h1 {
       text-align: center;
     }
-    .caixa{
-      padding: 15px;
+
+    .caixa {
+      padding-top: 15px;
+      padding-bottom: 15px;
     }
-    input{
+
+    input {
       border-radius: 20px;
-    }
-    #botao{
       width: 100%;
+    }
+
+    #botao {
+      width: 100%;
+      color: white;
+      background: dodgerblue;
     }
   </style>
 </head>
 
 <body>
-  <p>
-    <?php echo date('d/m/Y'); ?>
-  <p>
-
   <div id="principal">
-    <form action="" method="POST">
-      <div >
+    <form action="login.php" method="POST">
+      <div>
         <h1>Login<h1>
       </div>
 
       <br>
       <div class="caixa">
-        <label for="">Usuário:</label><br>
+        <label for="usuario">Usuário:</label><br>
         <input type="text" name="usuario">
       </div>
 
       <br>
       <div class="caixa">
-        <label for="">Senha:</label><br>
+        <label for="senha">Senha:</label><br>
         <input type="password" name="senha">
       </div>
 
@@ -59,9 +65,23 @@
       <div>
         <input id="botao" type="submit" value="Enviar">
       </div>
-
     </form>
   </div>
+
+  <div id="dados">
+    <?php
+      $usuario = $_POST['usuario'];
+      $senha = $_POST['senha'];
+      echo "Nome: " .$usuario . "<br>" . "Senha: " .$senha;
+
+    if ($usuario == "Camilly" && $senha == "083")
+      header["location: site.html"];
+    else
+      echo "Nome: ".$usuario . "<br>" . "Senha: ".$senha;
+
+    ?>
+  </div>
+
 
 </body>
 

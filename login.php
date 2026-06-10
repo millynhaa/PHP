@@ -20,6 +20,16 @@
       color: white;
     }
 
+    #conta button {
+      width: 100%;
+      background: white;
+      color: black;
+      border-radius: 20px;
+      border: none;
+      padding: 8px;
+      cursor: pointer;
+    }
+
     h1 {
       text-align: center;
     }
@@ -38,6 +48,10 @@
       width: 100%;
       color: white;
       background: dodgerblue;
+      border-radius: 20px;
+      border: none;
+      padding: 8px;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -46,7 +60,7 @@
   <div id="principal">
     <form action="login.php" method="POST">
       <div>
-        <h1>Login<h1>
+        <h1>Login</h1>
       </div>
 
       <br>
@@ -55,33 +69,46 @@
         <input type="text" name="usuario">
       </div>
 
-      <br>
       <div class="caixa">
         <label for="senha">Senha:</label><br>
         <input type="password" name="senha">
       </div>
 
       <br>
-      <div>
-        <input id="botao" type="submit" value="Enviar">
+
+      <button id="botao" type="submit">Enviar</button><br><br>
+
+      <div id="conta">
+        <button type="button" onclick="window.location.href='criar.php'">Criar Conta</button>
       </div>
+
     </form>
   </div>
 
-  <div id="dados">
-    <?php
+  <?php
+  include "conectar.php";
+
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+   if (!empty($_POST['usuario']) && !empty($_POST['senha'])) {
       $usuario = $_POST['usuario'];
       $senha = $_POST['senha'];
-      echo "Nome: " .$usuario . "<br>" . "Senha: " .$senha;
 
-    if ($usuario == "Camilly" && $senha == "083")
-      header["location: site.html"];
-    else
-      echo "Nome: ".$usuario . "<br>" . "Senha: ".$senha;
+      $sql = "SELECT * FROM usuario WHERE usuario = '$usuario' AND senha = '$senha'";
+      $resultado = mysqli_query($conexao, $sql);
 
-    ?>
-  </div>
+      if (mysqli_num_rows($resultado) > 0) {
+      echo "<p>Login realizado com sucesso!</p>";
+      } else {
+      echo "<p style='color:red;'>Usuário ou senha incorretos!</p>";
+      }
 
+    } else {
+      echo "<p style='color:red;'>Preencha todos os campos!</p>";
+    }
+
+  }
+  ?>
 
 </body>
 
